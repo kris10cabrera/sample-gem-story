@@ -1,7 +1,7 @@
 import React from 'react';
 const Choices = ({ choices, makeChoice }) => (
   <section className="choices">
-    <h3>Make a decision</h3>
+    <h3>How do you respond?</h3>
     <ul>
       {choices.map(choice => (
         <li key={choice.index}
