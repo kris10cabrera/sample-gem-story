@@ -7,6 +7,7 @@ import store from './state';
 
 
 ReactDOM.render(
+  // Redux Provider component allows us to propagate our state down 
   <Provider store={store}>
     <App />
   </Provider>, 
