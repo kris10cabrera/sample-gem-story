@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import Scene from './Scene';
+import Choices from './Choices';
+import Story from './Story';
+import { makeChoice } from './state/actions';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = props => 
+props.ending ? (
+  <div className="ending">This is the end! <span role="image" aria-label="party" >🎉</span></div>
+) : (
+  <div className="App">
+    <Scene tags={props.tags} />
+    <Story sceneText={props.sceneText} />
+    <Choices choices={props.currentChoices} makeChoice={props.makeChoice} />
+  </div>
+);
 
-export default App;
+const stateToProps = state => ({
+  tags: state.tags,
+  currentChoices: state.currentChoices,
+  sceneText: state.sceneText,
+  ending: state.ending
+});
+
+const dispatchToProps = dispatch => ({
+  makeChoice: index => dispatch(makeChoice(index))
+});
+
+export default connect(stateToProps, dispatchToProps)(App);
